@@ -6,7 +6,7 @@
 #include "nvdsinfer_context.h"
 #include "nvdsinfer_custom_impl.h"
 
-#define COMPILED_MODEL_PATH '/home/yuxin/Downloads/model'
+// #define COMPILED_MODEL_PATH '/home/yuxin/Downloads/model'
 #define PICTURE_HEIGHT 224
 #define PICTURE_WIDTH 224
 
@@ -27,7 +27,7 @@ extern "C" bool NvDsInferNeoDlrCudaEngineGet(nvinfer1::IBuilder* const builder,
   std::vector<nvinfer1::ITensor*> inputs = {input};
 
   // Create DLR plugin. Set path to compiled model (folder containing .json, .params, .so, libdlr.so)
-  auto* dlr_plugin = new NeoDLRLayer(COMPILED_MODEL_PATH);
+  auto* dlr_plugin = new NeoDLRLayer(std::getenv("COMPILED_MODEL_PATH"));
   nvinfer1::IPluginV2Layer* dlr_layer =
       network->addPluginV2(inputs.data(), inputs.size(), *dlr_plugin);
   // nvinfer1::IPluginV2Layer* dlr_layer =
